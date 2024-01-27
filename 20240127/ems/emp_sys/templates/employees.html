@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">Main Page</a>
+    <hr>
+    <a href="{% url 'add_emp' %}">Add Employee</a>
+    <h2>All Employees</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Post</th>
+            <th>Company</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in emps %}
+        <tr>
+            <td>{{ i.firstname}} {{i.lastname }}</td>
+            <td>{{ i.post }}</td>
+            <td>{{ i.company.name }}</td>
+            <td>
+                <form action="{% url 'del_emp' i.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">X</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

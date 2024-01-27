@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">Main Page</a>
+    <hr>
+    <a href="{% url 'add_comp' %}">Add Company</a>
+    <h2>All Companies</h2>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in comps %}
+        <tr>
+            <td><a href="{% url 'comp' i.id %}">{{ i.name}}</a></td>
+            <td>{{ i.type }}</td>
+            <td>{{ i.location }}</td>
+            <td>
+            <form action="{% url 'del_comp' i.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">X</button>
+            </form>
+        </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
